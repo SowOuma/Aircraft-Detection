@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 1
+names: ['Aircraft']
+
+roboflow:
+  workspace: computer-vision-projects-apr6t
+  project: aircraft-detection-gckqw-ozbqk
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/computer-vision-projects-apr6t/aircraft-detection-gckqw-ozbqk/dataset/1
