@@ -16,7 +16,17 @@ points_camera1 = []
 points_camera2 = []
 
 # Chargement du modèle YOLOv8 pré-entraîné
-model = YOLO("yolov8n.pt")
+#model = YOLO("yolov8n.pt")
+
+# --- ÉTAT PARTAGÉ POUR LA DERNIÈRE DÉTECTION ---
+latest_detection = {
+    "class": None,
+    "confidence": None,
+    "bbox": None  # (x1, y1, x2, y2)
+}
+
+model = YOLO("best_aircraft_yolo11s.pt")
+print("Model loaded ✅")
 model.eval()
 
 
@@ -34,31 +44,62 @@ def home1():
 
 def generation_video(camera):
     compteur = 0
-    # Assurez-vous que le répertoire "captures" existe
     os.makedirs("captures", exist_ok=True)
-    capture=False
-    
+    # éviter de sauver 1000 fois
+
+    CLASS_NAMES = ['A10', 'B1', 'B52', 'C130', 'C5', 'F117', 'F15', 'F22', 'MQ9', 'Tu160', 'aircraft', 'jet']  # correspond à ton data.yaml
 
     while True:
         success, frame = camera.read()
-
         if not success:
             break
 
-        # Application du modèle YOLOv5
-        results = model(frame)  # Faire des prédictions
-        
+        # 1. Inférence YOLOv8 sur la frame
+        results = model(frame)        # results = liste
+        result = results[0]           # premier résultat (batch=1)
+        boxes = result.boxes          # boîtes détectées
 
-                
-        # Encoder l'image pour l'afficher
+        # 2. Si on a détecté quelque chose
+        if boxes is not None and len(boxes) > 0:
+            for box, conf, cls in zip(boxes.xyxy, boxes.conf, boxes.cls):
+                x1, y1, x2, y2 = map(int, box.tolist())
+                conf = float(conf)
+                cls = int(cls)
+                # ... dans la boucle for des détections ...
+                name = result.names.get(cls, f"class_{cls}")
+
+                # mise à jour de l'état global
+                latest_detection["class"] = name
+                latest_detection["confidence"] = round(conf, 3)
+                latest_detection["bbox"] = [x1, y1, x2, y2]
+
+
+                # Label de la classe détectée
+                label_text = f"{CLASS_NAMES[cls]} {conf:.2f}"
+
+                # Couleur différente par classe (optionnel)
+                color = (0, 255, 0)
+                cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
+                cv2.putText(
+                    frame,
+                    label_text,
+                    (x1, y1 - 10),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.5,
+                    color,
+                    2
+                )
+
+
+        # 5. Encoder l'image annotée pour l'envoyer au navigateur
         ret, buffer = cv2.imencode('.jpg', frame)
-        frame = buffer.tobytes()
+        frame_bytes = buffer.tobytes()
         compteur += 1
-        
 
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
+               b'Content-Type: image/jpeg\r\n\r\n' +
+               frame_bytes +
+               b'\r\n')
 
 
 @app.route('/recuperer_source', methods=['POST'])
@@ -136,6 +177,9 @@ def cliquer_bouton():
         return jsonify({"error": "Flux vidéo non disponible"}), 400
     
 
+@app.route("/last_detection", methods=["GET"])
+def last_detection():
+    return jsonify(latest_detection)
 
 
 if __name__ == '__main__':

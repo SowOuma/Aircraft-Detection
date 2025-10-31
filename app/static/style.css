@@ -256,3 +256,69 @@ header {
 }
 
 
+/* === Mise en page des 2 colonnes === */
+.contenu {
+  flex: 1;
+  display: flex;
+  gap: 16px;                 /* petit espace entre les colonnes */
+  align-items: stretch;      /* mêmes hauteurs visuelles */
+  padding: 15px;
+  background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(./images/avions.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+/* La colonne vidéo prend ~55%, le panneau info ~45% */
+.section.drone  { flex: 0 0 55%; display:flex; align-items:center; justify-content:center; }
+.section.robot  { flex: 0 0 45%; display:flex; align-items:center; }
+
+/* === Cadre vidéo contraint côté front === */
+/* On remplace width/height:auto par un cadre responsif 16:9 avec taille max */
+#video_camera1.image_drone {
+  display: block;
+  width: 100%;               /* occupe la largeur dispo de sa colonne */
+  max-width: 720px;          /* limite “physique” de la fenêtre vidéo */
+  aspect-ratio: 16 / 9;      /* conserve le ratio 16:9 */
+  height: auto;              /* laisse le navigateur calculer la hauteur */
+  object-fit: contain;       /* ne déborde pas du cadre */
+  background: #000;          /* fond noir type lecteur vidéo */
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+
+/* Évite qu’une frame trop grande dépasse en hauteur (au cas où) */
+.section.drone {
+  max-height: calc(100vh - 110px - 70px - 30px); /* viewport - header - footer - padding approx */
+}
+.section.drone img {
+  max-height: 100%;
+}
+
+/* Panneau d’info: occupe la largeur de sa colonne, sans étirer */
+.info-panel {
+  width: 100%;
+  max-width: 540px;          /* optionnel: limite la largeur du bloc info */
+  margin: 0 auto;            /* centre le bloc dans la colonne */
+}
+
+/* Footer: plein écran et centré */
+.pied {
+  background:#000;
+  height: 70px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-top:auto;
+  width: 100%;
+}
+.pied_contenu {
+  margin: 0;
+}
+
+/* (Optionnel) Responsive: sous 992px de large, on passe en pile */
+@media (max-width: 992px) {
+  .contenu { flex-direction: column; }
+  .section.drone, .section.robot { flex: 1 1 auto; max-width: 100%; }
+  #video_camera1.image_drone { max-width: 100%; }
+  .info-panel { max-width: 100%; }
+}

@@ -1,13 +1,6 @@
-train: ../train/images
-val: ../valid/images
-test: ../test/images
+train: C:/Users/SOW/Desktop/Projet/Aircraft_detection/data/train/images
+val: C:/Users/SOW/Desktop/Projet/Aircraft_detection/data/valid/images
+test: C:/Users/SOW/Desktop/Projet/Aircraft_detection/data/test/images
 
-nc: 1
-names: ['Aircraft']
-
-roboflow:
-  workspace: computer-vision-projects-apr6t
-  project: aircraft-detection-gckqw-ozbqk
-  version: 1
-  license: CC BY 4.0
-  url: https://universe.roboflow.com/computer-vision-projects-apr6t/aircraft-detection-gckqw-ozbqk/dataset/1
+nc: 12
+names: ['A10', 'B1', 'B52', 'C130', 'C5', 'F117', 'F15', 'F22', 'MQ9', 'Tu160', 'aircraft', 'jet']
