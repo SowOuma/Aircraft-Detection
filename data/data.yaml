@@ -1,6 +1,0 @@
-train: C:/Users/SOW/Desktop/Projet/Aircraft_detection/data/train/images
-val: C:/Users/SOW/Desktop/Projet/Aircraft_detection/data/valid/images
-test: C:/Users/SOW/Desktop/Projet/Aircraft_detection/data/test/images
-
-nc: 12
-names: ['A10', 'B1', 'B52', 'C130', 'C5', 'F117', 'F15', 'F22', 'MQ9', 'Tu160', 'aircraft', 'jet']

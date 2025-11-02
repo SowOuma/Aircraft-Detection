@@ -1,324 +1,318 @@
-
+/* =============================
+   🌐 BASE GLOBALE
+   ============================= */
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background: #f1f1f1;
-    font-family: "Montserrat", "sans-serif";
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-.contenu {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(./images/avions.jpg);
-    background-size: cover;
-    background-position: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #f1f1f1;
+  font-family: "Montserrat", "sans-serif";
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-
-.pied {
-    background:#000000;
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: auto;
-}
+/* =============================
+   🔝 HEADER + NAVIGATION
+   ============================= */
 header {
-    background:#000000;
-    width: 100%;
-    height: 110px;
-    display: flex;
-    align-items: center;
-}
-
-.pied_contenu {
-    font-family: 'Arial', sans-serif;
-    font-size: 24px;
-    color: #fff;
-    text-align: center;
-    text-shadow: 0 0 5px rgb(29, 15, 7), 0 0 10px rgb(22, 22, 22), 0 0 20px rgb(46, 37, 37), 0 0 40px rgba(10, 10, 10, 0.459), 0 0 80px rgb(34, 33, 31);
-    background-color: #222;
-    padding: 20px;
-    border-radius: 8px;
+  background:#000000;
+  width: 100%;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* ajouté pour conserver le centrage métriques */
+  padding: 0 20px;
 }
 
 .navigation {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 20px;
 }
-#camera-form {
-    display: flex;
-    align-items: center;
-    gap: 10px; 
-  }
-  
-  .champ_de_saisi {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: .25rem;
-    border: 1px solid #ccc;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0;
-    box-sizing: border-box;
-    width: 300px; 
-    transition: all 0.3s ease;
-  }
-  
-  .champ_de_saisi:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  }
-  
-  .bouton_envoyer {
-    align-items: center;
-    background-clip: padding-box;
-    background-color: #00fac4;
-    border: 1px solid transparent;
-    border-radius: .25rem;
-    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
-    box-sizing: border-box;
-    color: #fff;
-    cursor: pointer;
-    display: inline-flex;
-    font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    justify-content: center;
-    line-height: 1.25;
-    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
-    text-decoration: none;
-    transition: all 250ms;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-  }
-  
-  .bouton_envoyer:hover,
-  .bouton_envoyer:focus {
-    background-color: #32fbbf;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-    transform: translateY(-1px);
-  }
-  
-  .bouton_envoyer:active {
-    background-color: #00c5e7;
-    box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
-    transform: translateY(0);
-  }
+
 .logo {
-    width: 70px;
-    height: 70px;
+  width: 70px;
+  height: 70px;
 }
 
-.container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 450px;
+/* === Bloc métriques dans le header === */
+.titre {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
 }
 
-.boutons-gauche, .boutons-droite {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-}
-/*decoration des boutons*/
-.button-5 {
-    background-color: #222;
-    border-radius: 4px;
-    border-style: none;
-    box-sizing: border-box;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.5;
-    margin: 0;
-    max-width: none;
-    min-height: 44px;
-    min-width: 10px;
-    outline: none;
-    overflow: hidden;
-    padding: 9px 20px 8px;
-    position: relative;
-    text-align: center;
-    text-transform: none;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    width: 100%;
-  }
-  
-  .button-5:hover,
-  .button-5:focus {
-    opacity: .75;
-  }
-
-.section {
-    flex: 1;
-    max-width: 45%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
+.metrics-panel {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #e2e8f0;
+  min-width: 220px;
+  text-align: left;
 }
 
-.image_drone, .image_robot {
-    width: auto;
-    height: auto;
+.metrics-title {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #38bdf8;
+  margin-bottom: 4px;
+  text-align: center;
 }
 
-
-
-
-
-
-.info-panel {
-    width: 100%;
-    background: rgba(0,0,0,0.6);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 12px;
-    padding: 16px 20px;
-    color: #f8fafc;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", Roboto, "Segoe UI", sans-serif;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
-    backdrop-filter: blur(4px);
+.metrics-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.3rem;
 }
 
-.info-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: #38bdf8; /* bleu radar style défense */
-    text-transform: uppercase;
-    letter-spacing: .05em;
-    margin: 0 0 12px 0;
+.metrics-list li {
+  display: flex;
+  justify-content: space-between;
 }
 
-.aircraft-meta {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    row-gap: 6px;
-    column-gap: 16px;
-    font-size: 13px;
-    background: rgba(15,23,42,0.6);
-    border: 1px solid rgba(148,163,184,0.3);
-    border-radius: 8px;
-    padding: 10px 12px;
-    margin-bottom: 12px;
-    color: #e2e8f0;
-}
-
-.aircraft-description {
-    font-size: 13px;
-    line-height: 1.4rem;
-    color: #cbd5e1;
-    background: rgba(15,23,42,0.4);
-    border: 1px solid rgba(148,163,184,0.2);
-    border-radius: 8px;
-    padding: 12px;
-    margin-bottom: 16px;
-    min-height: 70px;
-}
-
-.llm-block {
-    background: rgba(30,41,59,0.4);
-    border: 1px solid rgba(148,163,184,0.2);
-    border-radius: 8px;
-    padding: 12px;
-}
-
-.llm-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: #94a3b8;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-    margin-bottom: 6px;
-}
-
-.llm-output {
-    font-size: 13px;
-    color: #fff;
-    line-height: 1.4rem;
-    min-height: 60px;
-    white-space: pre-line;
-}
-
-
-/* === Mise en page des 2 colonnes === */
+/* =============================
+   🧭 CONTENU PRINCIPAL (2 colonnes)
+   ============================= */
 .contenu {
   flex: 1;
   display: flex;
-  gap: 16px;                 /* petit espace entre les colonnes */
-  align-items: stretch;      /* mêmes hauteurs visuelles */
+  gap: 16px;
+  align-items: stretch;
   padding: 15px;
   background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(./images/avions.jpg);
   background-size: cover;
   background-position: center;
 }
 
-/* La colonne vidéo prend ~55%, le panneau info ~45% */
+/* Colonnes gauche (drone) et droite (robot) */
+.section {
+  flex: 1;
+  max-width: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+
 .section.drone  { flex: 0 0 55%; display:flex; align-items:center; justify-content:center; }
 .section.robot  { flex: 0 0 45%; display:flex; align-items:center; }
 
-/* === Cadre vidéo contraint côté front === */
-/* On remplace width/height:auto par un cadre responsif 16:9 avec taille max */
-#video_camera1.image_drone {
-  display: block;
-  width: 100%;               /* occupe la largeur dispo de sa colonne */
-  max-width: 720px;          /* limite “physique” de la fenêtre vidéo */
-  aspect-ratio: 16 / 9;      /* conserve le ratio 16:9 */
-  height: auto;              /* laisse le navigateur calculer la hauteur */
-  object-fit: contain;       /* ne déborde pas du cadre */
-  background: #000;          /* fond noir type lecteur vidéo */
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+/* =============================
+   🎥 CADRE VIDÉO
+   ============================= */
+:root{
+  --pane-max-w: 720px;
+  --pane-ratio: 16 / 9;
+  --pane-radius: 12px;
+  --pane-shadow: 0 10px 30px rgba(0,0,0,.35);
 }
 
-/* Évite qu’une frame trop grande dépasse en hauteur (au cas où) */
+#video_camera1.image_drone {
+  display: block;
+  width: 100%;
+  max-width: var(--pane-max-w);
+  aspect-ratio: var(--pane-ratio);
+  height: auto;
+  object-fit: contain;
+  background: #000;
+  border-radius: var(--pane-radius);
+  box-shadow: var(--pane-shadow);
+}
+
+/* Évite le débordement vertical */
 .section.drone {
-  max-height: calc(100vh - 110px - 70px - 30px); /* viewport - header - footer - padding approx */
+  max-height: calc(100vh - 110px - 70px - 30px);
 }
 .section.drone img {
   max-height: 100%;
 }
 
-/* Panneau d’info: occupe la largeur de sa colonne, sans étirer */
-.info-panel {
-  width: 100%;
-  max-width: 540px;          /* optionnel: limite la largeur du bloc info */
-  margin: 0 auto;            /* centre le bloc dans la colonne */
+/* =============================
+   🧾 PANNEAU D’INFO (côté robot)
+   ============================= */
+.section.robot {
+  display:flex; align-items:center; justify-content:center;
 }
 
-/* Footer: plein écran et centré */
-.pied {
+.section.robot .info-panel {
+  width:100%;
+  max-width:var(--pane-max-w);
+  aspect-ratio:var(--pane-ratio);
   background:#000;
-  height: 70px;
+  border-radius:var(--pane-radius);
+  box-shadow:var(--pane-shadow);
+  overflow:auto;
+  padding:16px 20px;
   display:flex;
-  justify-content:center;
-  align-items:center;
-  margin-top:auto;
+  flex-direction:column;
+  border:1px solid rgba(255,255,255,0.15);
+  color:#f8fafc;
+  backdrop-filter: blur(4px);
+  transition: box-shadow 300ms ease, border-color 300ms ease, transform 120ms ease;
+}
+
+/* Détails internes du panneau */
+.info-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #38bdf8;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin: 0 0 12px 0;
+}
+
+.aircraft-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 6px;
+  column-gap: 16px;
+  font-size: 13px;
+  background: rgba(15,23,42,0.6);
+  border: 1px solid rgba(148,163,184,0.3);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  color: #e2e8f0;
+}
+
+.aircraft-description {
+  font-size: 13px;
+  line-height: 1.4rem;
+  color: #cbd5e1;
+  background: rgba(15,23,42,0.4);
+  border: 1px solid rgba(148,163,184,0.2);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+  min-height: 70px;
+}
+
+.llm-block {
+  background: rgba(30,41,59,0.4);
+  border: 1px solid rgba(148,163,184,0.2);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.llm-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 6px;
+}
+
+.llm-output {
+  font-size: 13px;
+  color: #fff;
+  line-height: 1.4rem;
+  min-height: 60px;
+  white-space: pre-line;
+}
+
+/* Highlight animé */
+.info-highlight {
+  animation: pulse-glow 1000ms ease-out 1;
+  border-color: #22c55e !important;
+  box-shadow: 0 0 0 0 rgba(34,197,94,0.65);
+}
+
+@keyframes pulse-glow {
+  0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0.65); transform: scale(1.00); }
+  40%  { box-shadow: 0 0 0 8px rgba(34,197,94,0.25); transform: scale(1.01); }
+  100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.00); transform: scale(1.00); }
+}
+
+/* =============================
+   📷 FORMULAIRE CAMÉRA
+   ============================= */
+#camera-form {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+}
+
+.champ_de_saisi {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: .25rem;
+  border: 1px solid #ccc;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0;
+  box-sizing: border-box;
+  width: 300px; 
+  transition: all 0.3s ease;
+}
+
+.champ_de_saisi:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.bouton_envoyer {
+  align-items: center;
+  background-clip: padding-box;
+  background-color: #007bff;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.bouton_envoyer:hover,
+.bouton_envoyer:focus {
+  background-color: #38bdf8;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  transform: translateY(-1px);
+}
+
+.bouton_envoyer:active {
+  background-color: #38bdf8;
+  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+  transform: translateY(0);
+}
+
+
+/* =============================
+   👣 PIED DE PAGE
+   ============================= */
+.pied {
+  background:#000000;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
   width: 100%;
 }
 .pied_contenu {
   margin: 0;
 }
 
-/* (Optionnel) Responsive: sous 992px de large, on passe en pile */
+/* =============================
+   📱 RESPONSIVE
+   ============================= */
 @media (max-width: 992px) {
   .contenu { flex-direction: column; }
   .section.drone, .section.robot { flex: 1 1 auto; max-width: 100%; }
-  #video_camera1.image_drone { max-width: 100%; }
-  .info-panel { max-width: 100%; }
+  #video_camera1.image_drone,
+  .section.robot .info-panel { max-width: 100%; }
 }

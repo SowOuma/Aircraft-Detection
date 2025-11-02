@@ -1,9 +1,9 @@
 from flask import Flask, Response, render_template, request, jsonify, url_for 
-import cv2
-import os
-from torch.hub import load as hub_load
-import numpy as np
-from ultralytics import YOLO
+import os, json, re
+from main import *
+
+
+
 
 app = Flask(__name__)
 
@@ -15,19 +15,6 @@ camera1 = None
 points_camera1 = []
 points_camera2 = []
 
-# Chargement du modèle YOLOv8 pré-entraîné
-#model = YOLO("yolov8n.pt")
-
-# --- ÉTAT PARTAGÉ POUR LA DERNIÈRE DÉTECTION ---
-latest_detection = {
-    "class": None,
-    "confidence": None,
-    "bbox": None  # (x1, y1, x2, y2)
-}
-
-model = YOLO("best_aircraft_yolo11s.pt")
-print("Model loaded ✅")
-model.eval()
 
 
 #definition du route principale 
@@ -40,66 +27,6 @@ model.eval()
 def home1():
     return render_template('index.html')
 
-
-
-def generation_video(camera):
-    compteur = 0
-    os.makedirs("captures", exist_ok=True)
-    # éviter de sauver 1000 fois
-
-    CLASS_NAMES = ['A10', 'B1', 'B52', 'C130', 'C5', 'F117', 'F15', 'F22', 'MQ9', 'Tu160', 'aircraft', 'jet']  # correspond à ton data.yaml
-
-    while True:
-        success, frame = camera.read()
-        if not success:
-            break
-
-        # 1. Inférence YOLOv8 sur la frame
-        results = model(frame)        # results = liste
-        result = results[0]           # premier résultat (batch=1)
-        boxes = result.boxes          # boîtes détectées
-
-        # 2. Si on a détecté quelque chose
-        if boxes is not None and len(boxes) > 0:
-            for box, conf, cls in zip(boxes.xyxy, boxes.conf, boxes.cls):
-                x1, y1, x2, y2 = map(int, box.tolist())
-                conf = float(conf)
-                cls = int(cls)
-                # ... dans la boucle for des détections ...
-                name = result.names.get(cls, f"class_{cls}")
-
-                # mise à jour de l'état global
-                latest_detection["class"] = name
-                latest_detection["confidence"] = round(conf, 3)
-                latest_detection["bbox"] = [x1, y1, x2, y2]
-
-
-                # Label de la classe détectée
-                label_text = f"{CLASS_NAMES[cls]} {conf:.2f}"
-
-                # Couleur différente par classe (optionnel)
-                color = (0, 255, 0)
-                cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
-                cv2.putText(
-                    frame,
-                    label_text,
-                    (x1, y1 - 10),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.5,
-                    color,
-                    2
-                )
-
-
-        # 5. Encoder l'image annotée pour l'envoyer au navigateur
-        ret, buffer = cv2.imencode('.jpg', frame)
-        frame_bytes = buffer.tobytes()
-        compteur += 1
-
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' +
-               frame_bytes +
-               b'\r\n')
 
 
 @app.route('/recuperer_source', methods=['POST'])
@@ -181,6 +108,36 @@ def cliquer_bouton():
 def last_detection():
     return jsonify(latest_detection)
 
+
+
+
+
+
+# === Route Flask pour l’analyse ===
+@app.route("/analysis", methods=["POST"])
+def analysis():
+    try:
+        data = request.get_json(force=True) or {}
+        ac_class = (data.get("class") or "").strip()
+        confidence = float(data.get("confidence") or 0.0)
+        context = (data.get("context") or "").strip()
+
+        if not ac_class:
+            return jsonify({"error": "Missing 'class'"}), 400
+
+        # ✅ Appel correct de la fonction
+        result = analyze_aircraft_with_groq(ac_class, confidence, context)
+
+        return jsonify({"analysis": result})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/reset_detection", methods=["POST"])
+def reset_detection():
+    global latest_detection
+    latest_detection = {"class": None, "confidence": None, "bbox": None}
+    print("✅ Détection réinitialisée")
+    return jsonify({"message": "Réinitialisé avec succès"})
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0', port=5000)

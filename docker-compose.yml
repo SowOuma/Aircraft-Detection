@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  aircraft_ai:
+    build: .
+    container_name: Aircraft_Dectection_App
+    ports:
+      - "5000:5000"
+    environment:
+      - GROQ_API_KEY= "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"
+      
+    volumes:
+      - .:/app
+    restart: always

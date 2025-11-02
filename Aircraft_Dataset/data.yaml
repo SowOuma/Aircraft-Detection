@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 12
+names: ['A10', 'B1', 'B52', 'C130', 'C5', 'F117', 'F15', 'F22', 'MQ9', 'Tu160', 'aircraft', 'jet']
+
+roboflow:
+  workspace: computer-vision-projects-apr6t
+  project: aircraftdetection-tz5o4
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/computer-vision-projects-apr6t/aircraftdetection-tz5o4/dataset/1
