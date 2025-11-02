@@ -1,6 +1,6 @@
 from flask import Flask, Response, render_template, request, jsonify, url_for 
 import os, json, re
-from main import *
+from fonctions import *
 
 
 

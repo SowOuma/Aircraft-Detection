@@ -92,7 +92,7 @@ def generation_video(camera):
 
 
 # === Configuration Groq ===
-GROQ_API_KEY = os.getenv("GROQ_API_KEY") or "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"
+GROQ_API_KEY = os.getenv("GROQ_API_KEY") or 
 
 # Initialise le client Groq
 client = OpenAI(api_key=GROQ_API_KEY, base_url="https://api.groq.com/openai/v1")
